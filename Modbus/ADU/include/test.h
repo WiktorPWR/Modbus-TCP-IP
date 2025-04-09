@@ -1,5 +1,8 @@
 #include "D:/Pulpit/PWR/Modbus/Modbus-TCP-IP/Modbus/ADU/ADU.h"
-
+#include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 void test_init_ADU() {
     printf("Poczatek testu\n");
     struct FREE_IDENTIFIERS identifiers;
@@ -24,9 +27,9 @@ void test_init_ADU() {
 
         // Sprawdzamy długość i zawartość danych
         if (memcmp(adu_ptr->Data, data, 4) == 0) {
-            printf("Dane są poprawne.\n");
+            printf("Dane sa poprawne.\n");
         } else {
-            printf("Dane są niepoprawne.\n");
+            printf("Dane sa niepoprawne.\n");
         }
 
         destroy_ADU(adu_ptr, &identifiers);
