@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "adu.h"  // <-- Twój nagłówek z deklaracjami struktur i funkcji
+#include "D:/Pulpit/PWR/Modbus/Modbus-TCP-IP/Modbus/ADU/include/ADU.h"  // <-- Twój nagłówek z deklaracjami struktur i funkcji
 
 struct FREE_IDENTIFIERS* init_IDENTIFIERS(struct FREE_IDENTIFIERS* identifiers) {
     memset(identifiers->list_of_free_transaction_identifiers, 0, sizeof(identifiers->list_of_free_transaction_identifiers));

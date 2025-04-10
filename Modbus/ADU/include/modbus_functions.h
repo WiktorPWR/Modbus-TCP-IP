@@ -1,7 +1,7 @@
 #ifndef MODBUS_FUNCTIONS_H
 #define MODBUS_FUNCTIONS_H
 
-#include "adu.h"
+#include "ADU.h"
 
 // Główna funkcja dispatcher
 void handle_modbus_function(struct ADU* adu);

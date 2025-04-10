@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "modbus_functions.h"
+#include "D:/Pulpit/PWR/Modbus/Modbus-TCP-IP/Modbus/ADU/include/modbus_functions.h"
 
 void handle_modbus_function(struct ADU* adu) {
     switch (adu->Function_Code) {
