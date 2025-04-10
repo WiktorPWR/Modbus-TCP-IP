@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+
+
+
 void test_init_ADU() {
     printf("Poczatek testu\n");
     struct FREE_IDENTIFIERS identifiers;
@@ -80,4 +84,68 @@ void test_transaction_identifier_management() {
 
     // Zwalniamy pamięć po drugim obiekcie ADU
     destroy_ADU(adu_ptr2, &identifiers);
+}
+
+
+
+void test_received_frame() {
+    printf("Początek testu received_frame()\n");
+
+    struct FREE_IDENTIFIERS identifiers;
+    struct ADU adu;
+
+    // Przykładowa ramka ADU:
+    // Transaction ID: 0x1234
+    // Protocol ID: 0x0000
+    // Length: 0x0006 (czyli 6 bajtów = Unit ID + Function Code + 4 bajty danych)
+    // Unit ID: 0x01
+    // Function Code: 0x03
+    // Dane: 0x11 0x22 0x33 0x44
+    uint8_t frame[] = {
+        0x00, 0x12,         // Transaction ID
+        0x00, 0x00,         // Protocol ID
+        0x00, 0x06,         // Length
+        0x01,               // Unit ID
+        0x03,               // Function Code
+        0x11, 0x22, 0x33, 0x44 // Dane
+    };
+
+    // Inicjalizacja listy identyfikatorów
+    init_IDENTIFIERS(&identifiers);
+
+    // Wywołujemy funkcję, która przetwarza odebraną ramkę
+    received_frame(&adu, &identifiers, frame);
+
+    printf("Wyszlismy\n");
+    // Oczekiwany Transaction ID w liczbie: 0x1234 = 4660
+    uint16_t expected_id = 0x0012;
+
+    // Sprawdzanie wyników
+    printf("Transaction Identifier: %02X%02X\n", adu.Transaction_Identifier[0], adu.Transaction_Identifier[1]);
+    printf("Protocol Identifier: %02X%02X\n", adu.Protocol_Identifier[0], adu.Protocol_Identifier[1]);
+    printf("Length Field: %02X%02X\n", adu.Length_Field[0], adu.Length_Field[1]);
+    printf("Unit ID: %02X\n", adu.Unit_ID);
+    printf("Function Code: %02X\n", adu.Function_Code);
+
+    printf("Data: ");
+    for (int i = 8; i < 12; i++) {
+        printf("%02X ", adu.Data[i]);
+    }
+    printf("\n");
+
+    // Sprawdzenie, czy Transaction ID został oznaczony jako zajęty
+    if (identifiers.list_of_free_transaction_identifiers[expected_id] == 0) {
+        printf("ID 0x%04X zostało poprawnie oznaczone jako zajęte.\n", expected_id);
+    } else {
+        printf("BŁĄD: ID 0x%04X nie zostało oznaczone jako zajęte!\n", expected_id);
+    }
+
+    // Sprawdzenie danych
+    if (memcmp(&adu.Data[8], &frame[8], 4) == 0) {
+        printf("Dane odebrane poprawnie.\n");
+    } else {
+        printf("BŁĄD: dane nie zgadzają się!\n");
+    }
+
+    printf("Koniec testu received_frame()\n\n");
 }

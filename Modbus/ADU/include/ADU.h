@@ -39,6 +39,8 @@ struct ADU* init_ADU(
 
 void destroy_ADU(struct ADU* adu, struct FREE_IDENTIFIERS* identifiers);
 
+void received_frame(struct ADU* adu, struct FREE_IDENTIFIERS* identifiers, uint8_t* data);
+
 #ifdef __cplusplus
 }
 #endif

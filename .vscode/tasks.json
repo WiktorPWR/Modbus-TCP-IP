@@ -7,7 +7,9 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${workspaceFolder}/Modbus/ADU/src/ADU.c",
+                "${workspaceFolder}/Modbus/main.c",
+                "${workspaceFolder}/Modbus/ADU/src/modbus_functions.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],

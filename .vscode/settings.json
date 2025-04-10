@@ -1,7 +1,0 @@
-{
-    "makefile.makefilePath": "Modbus\\Makefile",
-    "files.associations": {
-        "adu.h": "c",
-        "modbus_functions.h": "c"
-    }
-}
