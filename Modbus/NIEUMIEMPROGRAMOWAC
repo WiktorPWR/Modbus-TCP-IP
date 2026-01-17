@@ -1,1 +1,0 @@
-gcc main.c ADU/src/ADU.c ADU/src/modbus_functions.c -o program_kurwa
